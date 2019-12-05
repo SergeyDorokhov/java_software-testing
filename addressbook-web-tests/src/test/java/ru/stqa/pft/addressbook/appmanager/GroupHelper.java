@@ -14,7 +14,7 @@ public class GroupHelper extends HelperBase {
         type(By.name("group_name"), groupData.getName());
         type(By.name("group_header"), groupData.getHeader());
         type(By.name("group_footer"), groupData.getFooter());
-        click(By.name("submit"));
+        click(By.cssSelector("input[type='submit']"));
     }
 
     public void initGroupCreation() {
@@ -27,5 +27,9 @@ public class GroupHelper extends HelperBase {
 
     public void selectGroup() {
         click(By.name("selected[]"));
+    }
+
+    public void modificationSelectedGroup() {
+        click(By.xpath("(//input[@name='edit'])[2]"));
     }
 }
