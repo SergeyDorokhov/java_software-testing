@@ -15,7 +15,7 @@ public class SessionHelper extends HelperBase{
         click(By.xpath("//input[@value='Login']"));
     }
 
-    public void logoutFromAddressbook() {
+    public void logout() {
         click(By.linkText("Logout"));
     }
 }

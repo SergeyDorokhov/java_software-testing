@@ -10,6 +10,6 @@ public class ContactDeletionTest extends TestBase {
         app.getContactHelper().deleteSelectedContact();
         app.wd.switchTo().alert().accept();
         app.getNavigationHelper().gotoHomePage();
-        app.getSessionHelper().logoutFromAddressbook();
+        app.getSessionHelper().logout();
     }
 }

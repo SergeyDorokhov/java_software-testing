@@ -11,6 +11,6 @@ public class GroupCreationTests extends TestBase {
     app.getGroupHelper().initGroupCreation();
     app.getGroupHelper().fillGroupForm(new GroupData("111", "111", "111"));
     app.getNavigationHelper().returnToGroupPage();
-    app.getSessionHelper().logoutFromAddressbook();
+    app.getSessionHelper().logout();
   }
 }

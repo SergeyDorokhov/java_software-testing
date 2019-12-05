@@ -12,6 +12,6 @@ public class ContactCreationTest extends TestBase {
             "Z", "Moscow", "89999999999", "aaa@mail.ru"));
     app.getContactHelper().submitContactCreation();
     app.getNavigationHelper().gotoHomePage();
-    app.getSessionHelper().logoutFromAddressbook();
+    app.getSessionHelper().logout();
   }
 }
