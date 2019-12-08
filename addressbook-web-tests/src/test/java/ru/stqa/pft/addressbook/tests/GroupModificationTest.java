@@ -8,6 +8,7 @@ public class GroupModificationTest extends TestBase {
     @Test
     public void testGroupModification() throws Exception {
         app.getNavigationHelper().gotoGroupsPage();
+        app.getGroupHelper().checkExistingGroup();
         app.getGroupHelper().selectGroup();
         app.getGroupHelper().modificationSelectedGroup();
         app.getGroupHelper().fillGroupForm(new GroupData("111","111","222"));
