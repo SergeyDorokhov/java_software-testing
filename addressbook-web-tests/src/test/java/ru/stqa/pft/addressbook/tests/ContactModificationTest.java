@@ -7,7 +7,11 @@ public class ContactModificationTest extends TestBase {
     @Test
     public void testContactModification() throws Exception {
         app.getNavigationHelper().gotoHomePage();
-        app.getContactHelper().checkExistingContact();
+        if (!app.getContactHelper().isThereAContact()) {
+            app.getContactHelper().createContact(new ContactData("AAAAA", "BBBBBB", "CCCCCC",
+                    "Z", "Moscow", "89999999999",
+                    "aaa@mail.ru", "111"));
+        }
         app.getContactHelper().selectContact();
         app.getContactHelper().editSelectedContact();
         app.getContactHelper().fillContactCreationForm(new ContactData("zzz", "zzz", "zzz",

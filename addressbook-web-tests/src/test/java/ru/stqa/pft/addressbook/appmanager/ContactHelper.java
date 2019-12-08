@@ -51,14 +51,14 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("(//input[@name='update'])"));
     }
 
-    public void checkExistingContact() {
-        if (!isElementPresent(By.name("selected[]"))) {
+    public boolean isThereAContact() {
+        return isElementPresent(By.name("selected[]"));
+    }
+
+    public void createContact(ContactData contactData) {
             gotoContactCreationPage();
-            fillContactCreationForm(new ContactData("AAAAA", "BBBBBB", "CCCCCC",
-                    "Z", "Moscow", "89999999999",
-                    "aaa@mail.ru", "111"), true);
+            fillContactCreationForm(contactData, true);
             submitContactCreation();
             click(By.linkText("home"));
-        }
     }
 }

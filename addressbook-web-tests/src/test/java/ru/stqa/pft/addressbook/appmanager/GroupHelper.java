@@ -33,11 +33,21 @@ public class GroupHelper extends HelperBase {
         click(By.xpath("(//input[@name='edit'])[2]"));
     }
 
-    public void checkExistingGroup() {
-        if (!isElementPresent(By.name("selected[]"))) {
+    public void gotoGroupsPage() {
+        click(By.linkText("groups"));
+    }
+
+    public void returnToGroupPage() {
+        click(By.linkText("group page"));
+    }
+
+    public void createGroup(GroupData group) {
             initGroupCreation();
-            fillGroupForm(new GroupData("123", "123", "123"));
+            fillGroupForm(group);
             click(By.linkText("groups"));
-        }
+    }
+
+    public boolean isThereAGroup() {
+        return isElementPresent(By.name("selected[]"));
     }
 }

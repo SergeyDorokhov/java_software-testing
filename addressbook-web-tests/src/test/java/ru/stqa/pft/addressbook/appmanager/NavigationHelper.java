@@ -12,11 +12,5 @@ public class NavigationHelper extends HelperBase {
         click(By.linkText("home"));
     }
 
-    public void gotoGroupsPage() {
-        click(By.linkText("groups"));
-    }
 
-    public void returnToGroupPage() {
-        click(By.linkText("group page"));
-    }
 }
