@@ -63,7 +63,7 @@ public class GroupHelper extends HelperBase {
         List<GroupData> groups = new ArrayList<>();
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         for (WebElement element: elements) {
-            groups.add(new GroupData(element.getAttribute("value"),
+            groups.add(new GroupData(Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value")),
                     element.getText(), null, null));
         }
         return groups;
