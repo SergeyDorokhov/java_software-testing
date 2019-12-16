@@ -15,14 +15,14 @@ public class GroupModificationTest extends TestBase {
         if (!app.getGroupHelper().isThereAGroup()) {
             app.getGroupHelper().createGroup(new GroupData("111", null, null));
         }
-        List<GroupData> groupsBefore = app.getGroupHelper().getGrupList();
+        List<GroupData> groupsBefore = app.getGroupHelper().getGroupList();
         app.getGroupHelper().selectGroup(groupsBefore.size() - 1);
         app.getGroupHelper().modificationSelectedGroup();
         GroupData modificationGroup = new GroupData(groupsBefore.get(groupsBefore.size() - 1).getId(),
                 "111","111","222");
         app.getGroupHelper().fillGroupForm(modificationGroup);
         app.getGroupHelper().gotoGroupsPage();
-        List<GroupData> groupsAfter = app.getGroupHelper().getGrupList();
+        List<GroupData> groupsAfter = app.getGroupHelper().getGroupList();
         Assert.assertEquals(groupsAfter.size(), groupsBefore.size());
         groupsBefore.remove(groupsBefore.size() - 1);
         groupsBefore.add(modificationGroup);
