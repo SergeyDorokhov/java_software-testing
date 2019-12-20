@@ -1,28 +1,30 @@
 package ru.stqa.pft.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.List;
 
 public class ContactDeletionTest extends TestBase {
-    @Test(enabled = false)
-    public void testContactDeletion() throws Exception {
-        app.getNavigationHelper().gotoHomePage();
-        if (!app.getContactHelper().isThereAContact()) {
-            app.getContactHelper().createContact(new ContactData("AAAAA", "BBBBBB", "CCCCCC",
-                    "Z", "Moscow", "89999999999",
-                    "aaa@mail.ru", "111"));
+    @BeforeMethod
+    public void ensureContacts() {
+        app.goToNavigation().home();
+        if (!app.goToContacts().isThereAContact()) {
+            app.goToContacts().create(new ContactData().withFirstName("AAAAA").withMiddleName("BBBBBB").
+                    withLastName("CCCCCC").withCompany("Z").withAddress("Moscow").
+                    withMobilePhone("89999999999").withEmail("aaa@mail.ru").withGroup("111"));
         }
-        List<ContactData> before = app.getContactHelper().getContactList();
-        app.getContactHelper().selectContact();
-        app.getContactHelper().deleteSelectedContact();
-        app.wd.switchTo().alert().accept();
-        app.getNavigationHelper().gotoHomePage();
-        List<ContactData> after = app.getContactHelper().getContactList();
+    }
+
+    @Test
+    public void testContactDeletion() throws Exception {
+        List<ContactData> before = app.goToContacts().list();
+        app.goToContacts().delete();
+        app.goToNavigation().home();
+        List<ContactData> after = app.goToContacts().list();
         before.remove(0);
         Assert.assertEquals(before, after);
-        app.getSessionHelper().logout();
     }
 }

@@ -18,7 +18,7 @@ public class ApplicationManager {
     private SessionHelper sessionHelper;
     private String browser;
 
-    public ApplicationManager (String browser) {
+    public ApplicationManager(String browser) {
         this.browser = browser;
     }
 
@@ -30,21 +30,21 @@ public class ApplicationManager {
         return groupHelper;
     }
 
-    public NavigationHelper getNavigationHelper() {
+    public NavigationHelper goToNavigation() {
         return navigationHelper;
     }
 
-    public ContactHelper getContactHelper() {
+    public ContactHelper goToContacts() {
         return contactHelper;
     }
 
     public void init() {
-        if (browser.equals(BrowserType.FIREFOX) ) {
+        if (browser.equals(BrowserType.FIREFOX)) {
             wd = new FirefoxDriver();
         } else if (browser.equals(BrowserType.IE)) {
             wd = new InternetExplorerDriver();
         } else {
-            wd =new ChromeDriver();
+            wd = new ChromeDriver();
         }
 
         wd.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
@@ -61,11 +61,11 @@ public class ApplicationManager {
     }
 
     private boolean isElementPresent(By by) {
-      try {
-        wd.findElement(by);
-        return true;
-      } catch (NoSuchElementException e) {
-        return false;
-      }
+        try {
+            wd.findElement(by);
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
     }
 }
