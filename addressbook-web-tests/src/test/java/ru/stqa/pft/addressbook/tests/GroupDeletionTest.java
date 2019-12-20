@@ -22,6 +22,5 @@ public class GroupDeletionTest extends TestBase {
       Assert.assertEquals(groupsAfter.size(), groupsBefore.size() - 1);
       groupsBefore.remove(groupsBefore.size() - 1);
       Assert.assertEquals(groupsAfter, groupsBefore);
-    app.getSessionHelper().logout();
   }
 }

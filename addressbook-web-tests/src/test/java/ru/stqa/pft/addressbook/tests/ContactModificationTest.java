@@ -7,7 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ContactModificationTest extends TestBase {
-    @Test
+    @Test(enabled = false)
     public void testContactModification() throws Exception {
         app.getNavigationHelper().gotoHomePage();
         ContactData firstContactData = new ContactData("AAAAA", "BBBBBB", "CCCCCC",

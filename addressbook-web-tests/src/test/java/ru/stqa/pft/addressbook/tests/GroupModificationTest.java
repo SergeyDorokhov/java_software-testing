@@ -29,6 +29,5 @@ public class GroupModificationTest extends TestBase {
         groupsAfter.sort(byId);
         groupsBefore.sort(byId);
         Assert.assertEquals(groupsAfter, groupsBefore);
-        app.getSessionHelper().logout();
     }
 }
