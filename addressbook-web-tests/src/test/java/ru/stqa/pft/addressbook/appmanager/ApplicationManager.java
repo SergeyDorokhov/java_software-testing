@@ -26,7 +26,7 @@ public class ApplicationManager {
         return sessionHelper;
     }
 
-    public GroupHelper getGroupHelper() {
+    public GroupHelper goTo() {
         return groupHelper;
     }
 

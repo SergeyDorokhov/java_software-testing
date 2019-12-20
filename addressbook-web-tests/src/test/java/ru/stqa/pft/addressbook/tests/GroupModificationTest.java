@@ -10,26 +10,26 @@ import java.util.List;
 public class GroupModificationTest extends TestBase {
     @BeforeMethod
     public void insurePreconditions() {
-        app.getGroupHelper().gotoGroupsPage();
-        if (!app.getGroupHelper().isThereAGroup()) {
-            app.getGroupHelper().createGroup(new GroupData("111", null, null));
+        app.goTo().groups();
+        if (app.goTo().list().size() == 0) {
+            app.goTo().create(new GroupData("111", null, null));
         }
     }
 
     @Test
     public void testGroupModification() throws Exception {
-        List<GroupData> groupsBefore = app.getGroupHelper().getGroupList();
-        int index = groupsBefore.size() - 1;
-        GroupData modificationGroup = new GroupData(groupsBefore.get(index).getId(),
+        List<GroupData> before = app.goTo().list();
+        int index = before.size() - 1;
+        GroupData group = new GroupData(before.get(index).getId(),
                 "111", "111", "222");
-        app.getGroupHelper().modifyGroup(index, modificationGroup);
-        List<GroupData> groupsAfter = app.getGroupHelper().getGroupList();
-        Assert.assertEquals(groupsAfter.size(), groupsBefore.size());
-        groupsBefore.remove(index);
-        groupsBefore.add(modificationGroup);
+        app.goTo().modify(index, group);
+        List<GroupData> after = app.goTo().list();
+        Assert.assertEquals(after.size(), before.size());
+        before.remove(index);
+        before.add(group);
         Comparator<? super GroupData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
-        groupsAfter.sort(byId);
-        groupsBefore.sort(byId);
-        Assert.assertEquals(groupsAfter, groupsBefore);
+        after.sort(byId);
+        before.sort(byId);
+        Assert.assertEquals(after, before);
     }
 }
