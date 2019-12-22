@@ -7,9 +7,7 @@ import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class GroupHelper extends HelperBase {
 
@@ -55,6 +53,7 @@ public class GroupHelper extends HelperBase {
     public void create(GroupData group) {
         initGroupCreation();
         fillGroupForm(group);
+        groupCache = null;
         click(By.linkText("groups"));
     }
 
@@ -69,6 +68,7 @@ public class GroupHelper extends HelperBase {
         selectGroup(group);
         modificationSelectedGroup();
         fillGroupForm(group);
+        groupCache = null;
         groups();
     }
 
@@ -81,6 +81,7 @@ public class GroupHelper extends HelperBase {
     public void delete(GroupData deletedGroup) {
         selectGroup(deletedGroup);
         deleteSelectedGroup();
+        groupCache = null;
         groups();
     }
 
@@ -102,13 +103,18 @@ public class GroupHelper extends HelperBase {
         return groups;
     }
 
+    private Groups groupCache;
+
     public Groups all() {
-        Groups groups = new Groups();
+        if (groupCache != null) {
+            return new Groups(groupCache);
+        }
+        groupCache = new Groups();
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         for (WebElement element : elements) {
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            groups.add(new GroupData().withId(id).withName(element.getText()));
+            groupCache.add(new GroupData().withId(id).withName(element.getText()));
         }
-        return groups;
+        return new Groups(groupCache);
     }
 }

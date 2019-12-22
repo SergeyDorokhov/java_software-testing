@@ -9,9 +9,7 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -71,6 +69,7 @@ public class ContactHelper extends HelperBase {
         gotoContactCreationPage();
         fillContactCreationForm(contactData, true);
         submitContactCreation();
+        contactsCache = null;
         click(By.linkText("home"));
     }
 
@@ -83,6 +82,7 @@ public class ContactHelper extends HelperBase {
     public void delete(ContactData contact) {
         selectContact(contact);
         deleteSelectedContact();
+        contactsCache = null;
         wd.switchTo().alert().accept();
     }
 
@@ -90,6 +90,7 @@ public class ContactHelper extends HelperBase {
         selectContact(contact);
         editSelectedContact();
         fillContactCreationForm((contact), false);
+        contactsCache = null;
         submitContactModification();
     }
 
@@ -106,16 +107,20 @@ public class ContactHelper extends HelperBase {
         return contacts;
     }
 
+    private Contacts contactsCache;
+
     public Contacts all() {
-        Contacts contacts = new Contacts();
-        List<WebElement> elements = wd.findElements(By.name("entry"));
-        for (WebElement element : elements) {
-            List<WebElement> names = element.findElements(By.tagName("td"));
-            int id = Integer.parseInt(names.get(0).findElement(By.tagName("input")).getAttribute("value"));
-            ContactData contact = new ContactData().withId(id).withFirstName(names.get(2).getText()).
-                    withLastName(names.get(1).getText());
-            contacts.add(contact);
+        if (contactsCache == null) {
+            contactsCache = new Contacts();
+            List<WebElement> elements = wd.findElements(By.name("entry"));
+            for (WebElement element : elements) {
+                List<WebElement> names = element.findElements(By.tagName("td"));
+                int id = Integer.parseInt(names.get(0).findElement(By.tagName("input")).getAttribute("value"));
+                ContactData contact = new ContactData().withId(id).withFirstName(names.get(2).getText()).
+                        withLastName(names.get(1).getText());
+                contactsCache.add(contact);
+            }
         }
-        return contacts;
+        return new Contacts(contactsCache);
     }
 }
