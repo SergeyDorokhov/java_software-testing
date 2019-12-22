@@ -8,7 +8,9 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -43,6 +45,11 @@ public class ContactHelper extends HelperBase {
         click(By.name("selected[]"));
     }
 
+
+    public void selectContact(ContactData contact) {
+        click(By.cssSelector("input[value='" + contact.getId() + "']"));
+    }
+
     public void deleteSelectedContact() {
         click(By.xpath("(//input[@value='Delete'])"));
     }
@@ -72,15 +79,34 @@ public class ContactHelper extends HelperBase {
         wd.switchTo().alert().accept();
     }
 
-    public void modify(ContactData newContact) {
-        selectContact();
+    public void delete(ContactData contact) {
+        selectContact(contact);
+        deleteSelectedContact();
+        wd.switchTo().alert().accept();
+    }
+
+    public void modify(ContactData contact) {
+        selectContact(contact);
         editSelectedContact();
-        fillContactCreationForm((newContact), false);
+        fillContactCreationForm((contact), false);
         submitContactModification();
     }
 
     public List<ContactData> list() {
         List<ContactData> contacts = new ArrayList();
+        List<WebElement> elements = wd.findElements(By.name("entry"));
+        for (WebElement element : elements) {
+            List<WebElement> names = element.findElements(By.tagName("td"));
+            int id = Integer.parseInt(names.get(0).findElement(By.tagName("input")).getAttribute("value"));
+            ContactData contact = new ContactData().withId(id).withFirstName(names.get(2).getText()).
+                    withLastName(names.get(1).getText());
+            contacts.add(contact);
+        }
+        return contacts;
+    }
+
+    public Set<ContactData> all() {
+        Set<ContactData> contacts = new HashSet<>();
         List<WebElement> elements = wd.findElements(By.name("entry"));
         for (WebElement element : elements) {
             List<WebElement> names = element.findElements(By.tagName("td"));
