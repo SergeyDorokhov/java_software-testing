@@ -28,9 +28,6 @@ public class GroupModificationTest extends TestBase {
                 withName("111").withHeader("111").withFooter("222");
         app.goTo().modify(group);
         Groups after = app.goTo().all();
-        before.remove(modyfiedGroup);
-        before.add(group);
         assertThat(after, equalTo(before.without(modyfiedGroup).withAdded(group)));
-        Assert.assertEquals(after, before);
     }
 }
