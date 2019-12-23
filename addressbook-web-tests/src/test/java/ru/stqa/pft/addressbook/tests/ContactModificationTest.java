@@ -28,6 +28,7 @@ public class ContactModificationTest extends TestBase {
                         withMobilePhone("77777777777").withEmail("edit@mail.ru").withGroup("777");
         app.goToContacts().modify(newContact);
         app.goToNavigation().home();
+        assertThat(app.goTo().count(), equalTo(before.size()));
         Contacts after = app.goToContacts().all();
         assertThat(after, equalTo(before.without(modifiedContact).withAdded(newContact)));
     }

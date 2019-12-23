@@ -53,8 +53,8 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("(//input[@value='Delete'])"));
     }
 
-    public void editSelectedContact() {
-        click(By.xpath("(//img[@alt='Edit'])"));
+    public void editSelectedContact(ContactData contact) {
+        click(By.cssSelector("a[href*='edit.php?id="+contact.getId()+"']"));
     }
 
     public void submitContactModification() {
@@ -87,7 +87,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void modify(ContactData contact) {
-        editSelectedContact();
+        editSelectedContact(contact);
         fillContactCreationForm((contact), false);
         contactsCache = null;
         submitContactModification();
