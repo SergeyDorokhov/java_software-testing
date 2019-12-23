@@ -87,7 +87,6 @@ public class ContactHelper extends HelperBase {
     }
 
     public void modify(ContactData contact) {
-        selectContact(contact);
         editSelectedContact();
         fillContactCreationForm((contact), false);
         contactsCache = null;
